@@ -9,12 +9,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
-public class AesEncryption {
-    public static String algorithm = "AES";
+public class TripleDesEncryption {
+    public static String algorithm = "DESede";
     public static String mode = "CBC";
     public static String padding = "PKCS5Padding";
-    public static final String keyString = "happybirthday321";  // AES의 키는 16 바이트 (128 비트)
-    public static String ivString = keyString.substring(0, 16);  // AES의 iv는 16 바이트
+    public static final String keyString = "happybirthday321happybir";  // 3DES의 키는 24 바이트(192 비트) 키
+    public static String ivString = keyString.substring(0, 8);  // 3DES의 iv는 8 바이트
 
     public static String encrypt(String plaintext)
             throws NoSuchAlgorithmException,
