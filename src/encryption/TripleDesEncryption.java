@@ -1,3 +1,5 @@
+package encryption;
+
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -9,14 +11,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
-public class AesEncryption {
-    public static String algorithm = "AES";
+public class TripleDesEncryption {
+    public static String algorithm = "DESede";
     public static String mode = "CBC";
     public static String padding = "PKCS5Padding";
-    public static final String keyString = "happybirthday321";  // AES의 키는 16 바이트 (128 비트)
-    public static String ivString = keyString.substring(0, 16);  // AES의 iv는 16 바이트
+    public static final String keyString = "happybirthday321happybir";  // 3DES의 키는 24 바이트(192 비트) 키
+    public static String ivString = keyString.substring(0, 8);  // 3DES의 iv는 8 바이트
 
-    public static String encrypt(String plaintext)
+    public static String encrypt(String plaintext, String key)
             throws NoSuchAlgorithmException,
             InvalidKeySpecException,
             NoSuchPaddingException,
@@ -28,7 +30,7 @@ public class AesEncryption {
         // Cipher 객체 생성, AES 암호화, CBC 모드
         Cipher cipher = Cipher.getInstance(algorithm + "/" + mode + "/" + padding);
         // 비밀키 객체 생성
-        SecretKeySpec secretKeySpec = new SecretKeySpec(keyString.getBytes(StandardCharsets.UTF_8), algorithm);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), algorithm);
         // 초기화 벡터 객체 생성
         IvParameterSpec ivParameterSpec = new IvParameterSpec(ivString.getBytes(StandardCharsets.UTF_8));
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
@@ -38,7 +40,7 @@ public class AesEncryption {
         return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 
-    public static String decrypt(String ciphertext)
+    public static String decrypt(String ciphertext, String key)
             throws NoSuchPaddingException,
             NoSuchAlgorithmException,
             InvalidKeyException,
@@ -47,7 +49,7 @@ public class AesEncryption {
             BadPaddingException, UnsupportedEncodingException {
 
         Cipher cipher = Cipher.getInstance(algorithm + "/" + mode + "/" + padding);
-        SecretKeySpec secretKeySpec = new SecretKeySpec(keyString.getBytes(StandardCharsets.UTF_8), algorithm);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), algorithm);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(ivString.getBytes(StandardCharsets.UTF_8));
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
 
