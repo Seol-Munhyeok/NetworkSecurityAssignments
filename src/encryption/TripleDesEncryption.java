@@ -15,7 +15,7 @@ public class TripleDesEncryption {
     public static String algorithm = "DESede";
     public static String mode = "CBC";
     public static String padding = "PKCS5Padding";
-    public static final String keyString = "happybirthday321happybir";  // 3DES의 키는 24 바이트(192 비트) 키
+    public static final String keyString = "happybirthday321happybir";  // 3DES의 키는 24 바이트지만 실제 사용하는 부분은 168 비트
     public static String ivString = keyString.substring(0, 8);  // 3DES의 iv는 8 바이트
 
     public static String encrypt(String plaintext, String key)
