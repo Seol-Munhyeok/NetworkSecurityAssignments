@@ -14,7 +14,7 @@ public class DesEncryption {
     public static String algorithm = "DES";
     public static String mode = "CBC";
     public static String padding = "PKCS5Padding";
-    public static final String keyString = "happybir";  // DES의 키는 8 바이트 (64 비트), 1 바이트는 패리티 비트
+    public static final String keyString = "happybir";  // DES의 키는 8 바이트(64 비트)지만 실제 사용하는 부분은 56 비트
     // DES는 iv 없음
 
     public static String encrypt(String plaintext, String key)
